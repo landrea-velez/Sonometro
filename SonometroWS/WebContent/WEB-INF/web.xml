@@ -13,9 +13,6 @@
     <servlet-name>Jersey REST Service</servlet-name>
     <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
     <!-- Register resources and providers  -->
-    
-     
-    
     <init-param>
         <param-name>jersey.config.server.provider.packages</param-name>
         <param-value>co.edu.controlruido.sonometro.sw</param-value>

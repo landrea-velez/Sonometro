@@ -19,8 +19,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
-import co.edu.controlruido.sonometro.dao.DataModelDao;
-import co.edu.controlruido.sonometro.model.DataModelClass;
+import co.edu.controlruido.sonometro.dao.DecibelioDao;
+import co.edu.controlruido.sonometro.model.Decibelio;
 
 // Will map the resource to the URL todos
 @Path("/todos")
@@ -33,32 +33,32 @@ public class DataModeslResource {
   @Context
   Request request;
 
-  // Return the list of todos to the user in the browser
+  // Return the list of decibels to the user in the browser
   @GET
   @Produces(MediaType.TEXT_XML)
-  public List<DataModelClass> getTodosBrowser() {
-    List<DataModelClass> todos = new ArrayList<DataModelClass>();
-    todos.addAll(DataModelDao.instance.getModel().values());
-    return todos;
+  public List<Decibelio> getDecibeliosBrowser() {
+    List<Decibelio> decibelios = new ArrayList<Decibelio>();
+    decibelios.addAll(DecibelioDao.instance.getModel().values());
+    return decibelios;
   }
 
-  // Return the list of todos for applications
+  // Return the list of decibels for applications
   @GET
   @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-  public List<DataModelClass> getTodos() {
-    List<DataModelClass> todos = new ArrayList<DataModelClass>();
-    todos.addAll(DataModelDao.instance.getModel().values());
-    return todos;
+  public List<Decibelio> getDecibelios() {
+    List<Decibelio> decibelios = new ArrayList<Decibelio>();
+    decibelios.addAll(DecibelioDao.instance.getModel().values());
+    return decibelios;
   }
 
-  // retuns the number of todos
-  // Use http://localhost:8080/com.vogella.jersey.todo/rest/todos/count
+  // retuns the number of decibels
+  // Use http://localhost:8080/SonometroWS/rest/todos/count
   // to get the total number of records
   @GET
   @Path("count")
   @Produces(MediaType.TEXT_PLAIN)
   public String getCount() {
-    int count = DataModelDao.instance.getModel().size();
+    int count = DecibelioDao.instance.getModel().size();
     return String.valueOf(count);
   }
 
@@ -66,21 +66,21 @@ public class DataModeslResource {
   @Produces(MediaType.TEXT_HTML)
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
   public void newTodo(@FormParam("id") String id,
-      @FormParam("summary") String summary,
-      @FormParam("description") String description,
+      @FormParam("nivel") String nivel,
+      @FormParam("descripcion") String descripcion,
       @Context HttpServletResponse servletResponse) throws IOException {
-	  DataModelClass todo = new DataModelClass(id, summary);
-    if (description != null) {
-      todo.setDescription(description);
+	  Decibelio decibelio = new Decibelio(id, nivel);
+    if (descripcion != null) {
+    	decibelio.setDescripcion(descripcion);
     }
-    DataModelDao.instance.getModel().put(id, todo);
+    DecibelioDao.instance.getModel().put(id, decibelio);
 
     servletResponse.sendRedirect("../create_todo.html");
   }
 
-  // Defines that the next path parameter after todos is
+  // Defines that the next path parameter after decibels is
   // treated as a parameter and passed to the TodoResources
-  // Allows to type http://localhost:8080/com.vogella.jersey.todo/rest/todos/1
+  // Allows to type http://localhost:8080/SonometroWS/rest/todos/1
   // 1 will be treaded as parameter todo and passed to TodoResource
   @Path("{todo}")
   public DataModelResource getTodo(@PathParam("todo") String id) {

@@ -1,6 +1,4 @@
-package co.edu.controlruido.sonometro.sw;
-
-  
+package co.edu.controlruido.sonometro.sw;  
  
  import javax.ws.rs.Consumes;
  import javax.ws.rs.DELETE;
@@ -14,8 +12,8 @@ package co.edu.controlruido.sonometro.sw;
  import javax.ws.rs.core.UriInfo;
  import javax.xml.bind.JAXBElement;
 
- import co.edu.controlruido.sonometro.dao.DataModelDao;
- import co.edu.controlruido.sonometro.model.DataModelClass;
+ import co.edu.controlruido.sonometro.dao.DecibelioDao;
+ import co.edu.controlruido.sonometro.model.Decibelio;
 
  public class DataModelResource {
    @Context
@@ -32,45 +30,45 @@ package co.edu.controlruido.sonometro.sw;
    //Application integration     
    @GET
    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-   public DataModelClass getTodo() {
-	   DataModelClass todo = DataModelDao.instance.getModel().get(id);
-     if(todo==null)
-       throw new RuntimeException("Get: Todo with " + id +  " not found");
-     return todo;
+   public Decibelio getDecibelio() {
+	   Decibelio decibelio = DecibelioDao.instance.getModel().get(id);
+     if(decibelio==null)
+       throw new RuntimeException("Get: decibel with " + id +  " not found");
+     return decibelio;
    }
    
    // for the browser
    @GET
    @Produces(MediaType.TEXT_XML)
-   public DataModelClass getTodoHTML() {
-	   DataModelClass todo = DataModelDao.instance.getModel().get(id);
-     if(todo==null)
-       throw new RuntimeException("Get: Todo with " + id +  " not found");
-     return todo;
+   public Decibelio getDecibelioHTML() {
+	   Decibelio decibelio = DecibelioDao.instance.getModel().get(id);
+     if(decibelio==null)
+       throw new RuntimeException("Get: decibel with " + id +  " not found");
+     return decibelio;
    }
    
    @PUT
    @Consumes(MediaType.APPLICATION_XML)
-   public Response putTodo(JAXBElement<DataModelClass> todo) {
-	   DataModelClass c = todo.getValue();
+   public Response putDecibelio(JAXBElement<Decibelio> decibelio) {
+	   Decibelio c = decibelio.getValue();
      return putAndGetResponse(c);
    }
    
    @DELETE
-   public void deleteTodo() {
-	   DataModelClass c = DataModelDao.instance.getModel().remove(id);
-     if(c==null)
-       throw new RuntimeException("Delete: Todo with " + id +  " not found");
+   public void deleteDecibelio() {
+	   Decibelio decibelio = DecibelioDao.instance.getModel().remove(id);
+     if(decibelio==null)
+       throw new RuntimeException("Delete: decibelio with " + id +  " not found");
    }
    
-   private Response putAndGetResponse(DataModelClass todo) {
+   private Response putAndGetResponse(Decibelio decibelio) {
      Response res;
-     if(DataModelDao.instance.getModel().containsKey(todo.getId())) {
+     if(DecibelioDao.instance.getModel().containsKey(decibelio.getId())) {
        res = Response.noContent().build();
      } else {
        res = Response.created(uriInfo.getAbsolutePath()).build();
      }
-     DataModelDao.instance.getModel().put(todo.getId(), todo);
+     DecibelioDao.instance.getModel().put(decibelio.getId(), decibelio);
      return res;
    }
    

@@ -15,7 +15,7 @@ package co.edu.controlruido.sonometro.test;
 
  import org.glassfish.jersey.client.ClientConfig;
 
- import co.edu.controlruido.sonometro.model.DataModelClass;
+ import co.edu.controlruido.sonometro.model.Decibelio;
 
  public class DataModelTest {
    public static void main(String[] args) {
@@ -26,7 +26,7 @@ package co.edu.controlruido.sonometro.test;
      WebTarget service = client.target(getBaseURI());
 
      // create one todo
-     DataModelClass todo = new DataModelClass("3", "Blabla");
+     Decibelio todo = new Decibelio("3", "Blabla");
      Response response = service.path("rest").path("todos").path(todo.getId()).request(MediaType.APPLICATION_XML).put(Entity.entity(todo,MediaType.APPLICATION_XML),Response.class);
 
      // Return code should be 201 == created resource

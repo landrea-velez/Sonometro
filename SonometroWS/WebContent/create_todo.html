@@ -4,15 +4,41 @@
   <title>Form to create a new resource</title>
  </head>
 <body>
-  <form action="../com.vogella.jersey.todo/rest/todos" method="POST">
-  <label for="id">ID</label>
-  <input name="id" />
-  <br/>
-  <label for="summary">Summary</label>
-  <input name="summary" />
-  <br/>
-  Description:
-  <TEXTAREA NAME="description" COLS=40 ROWS=6></TEXTAREA>
+  <form action="../SonometroWS/rest/todos" method="POST">
+  <table>
+	<tr>
+	  <td><strong><label for="id">ID</label></strong></td>
+	  <td><input name="id" /></td>
+	</tr>
+	<tr>
+	  <td><strong><label for="nivel">Nivel de intensidad</label></strong></td>
+	  <td>
+	   <select name="nivel" id="nivel">
+		<option value="">Seleccione </option>
+		<option value="200">200 dB</option>
+		<option value="180">180 dB</option>
+		<option value="142.2">142.2 dB</option>
+		<option value="140">140 dB</option>
+		<option value="130">130 dB</option>
+		<option value="120">120 dB</option>
+		<option value="110">110 dB</option>
+		<option value="100">100 dB</option>
+		<option value="90">90 dB</option>
+		<option value="80">80 dB</option>
+		<option value="70">70 dB</option>
+		<option value="50">50/60 dB</option>
+		<option value="40">40 dB</option>
+		<option value="20">20 dB</option>
+		<option value="10">10 dB</option>
+		<option value="0">0 dB</option>
+	  </select>
+	  </td>
+	</tr>
+	<tr>
+	  <td><strong>Descripcion intensidad:</strong></td>
+	  <td><TEXTAREA NAME="descripcion" id="descripcion" COLS=20 ROWS=2></TEXTAREA></td>
+	</tr>
+	</table>
   <br/>
   <input type="submit" value="Submit" />
   </form>
